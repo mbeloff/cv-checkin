@@ -10,7 +10,7 @@ export default createStore({
   },
   mutations: {
     resref(state, payload) {
-      state.pbresref = payload
+      state.resref = payload
     },
     token(state, payload) {
       state.token = payload
@@ -21,7 +21,7 @@ export default createStore({
   },
   actions: {
     resref(context, payload) {
-      context.commit('pbresref', payload)
+      context.commit('resref', payload)
     },
     token(context, payload) {
       context.commit('token', payload)

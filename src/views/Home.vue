@@ -1,7 +1,6 @@
 <template>
-  <loading-overlay v-if="loading" class="z-10"></loading-overlay>
-
-  <div class="flex h-full flex-col justify-center">
+  <div class="relative flex h-full flex-col justify-center bg-gray-300">
+    <loading-overlay v-if="loading" class="z-10"></loading-overlay>
     <div class="my-2 h-12">
       <p v-show="error" class="text-center text-red-500">{{ error }}</p>
     </div>
@@ -9,7 +8,7 @@
     <form for="resno" class="mx-auto flex max-w-sm flex-col text-left">
       <label class="group flex flex-grow flex-col">
         <div class="flex flex-row place-items-center">
-          <i class="form-i fal fa-book fa-fw"></i>
+          <i class="form-i fal fa-book fa-fw -ml-2 mr-2"></i>
           <input
             id="resno"
             v-model="resno"
@@ -23,7 +22,7 @@
       </label>
       <label for="lastname" class="group mt-2 flex flex-grow flex-col">
         <div class="flex flex-row place-items-center">
-          <i class="form-i fal fa-user fa-fw"></i>
+          <i class="form-i fal fa-user fa-fw -ml-2 mr-2"></i>
           <input
             id="lastname"
             v-model="lastname"
@@ -67,9 +66,6 @@ export default {
     };
   },
   computed: {
-    // resref() {
-    //   return this.$store.state.resref;
-    // },
     token() {
       return this.$store.state.token;
     },
@@ -98,29 +94,29 @@ export default {
         reservationno: resno,
         lastname: lastname,
       };
-      if (resno && lastname) {
-        Mixins.methods
-          .postapiCall(method)
-          .then((res) => {
-            if (res.status == "OK") {
-              let resref = res.results[0].reservationref;
-              this.$store.dispatch("resref", resref);
-              this.$router.push({ name: "ModifyBooking" });
-            } else if (res.status == "ERR") {
-              throw res.error;
-            }
-          })
-          .catch((err) => {
-            this.loading = false;
-            this.error = err;
-            console.log("find booking (error): " + err);
-          });
-      } else {
+      if (!resno || !lastname) {
         this.error = "Please enter reservation number and your last name.";
         this.missinginput = true;
         this.loading = false;
         return;
       }
+      Mixins.methods
+        .postapiCall(method)
+        .then((res) => {
+          if (res.status == "OK") {
+            console.log(res.results);
+            let resref = res.results[0].reservationref;
+            this.$store.dispatch("resref", resref);
+            this.$router.push({ name: "Checkin" });
+          } else if (res.status == "ERR") {
+            throw res.error;
+          }
+        })
+        .catch((err) => {
+          this.loading = false;
+          this.error = err;
+          console.log("find booking (error): " + err);
+        });
     },
   },
 };
