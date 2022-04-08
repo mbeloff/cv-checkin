@@ -1,18 +1,22 @@
 <template>
-  <div class="relative h-full bg-gray-300 py-10 px-2">
-    <loading-overlay v-if="loading"></loading-overlay>
-    <drivers v-if="gotBooking"></drivers>
+  <div class="relative grid h-full gap-5 bg-gray-300 py-10 px-2">
+    <drivers v-if="gotBooking" @update="bookingInfo()"></drivers>
+
+    <!-- <modify-uploads></modify-uploads> -->
   </div>
 </template>
 
 <script>
 import Mixins from "@/Mixins.js";
 import LoadingOverlay from "@/components/LoadingOverlay.vue";
+// import ModifyUploads from "@/components/ModifyUploads.vue";
 import Drivers from "@/components/Drivers.vue";
+
 export default {
   components: {
     LoadingOverlay,
     Drivers,
+    // ModifyUploads,
   },
   mixins: [Mixins],
   data() {
@@ -38,7 +42,6 @@ export default {
         method: "countries",
       };
       Mixins.methods.postapiCall(method).then((results) => {
-        console.log(results);
         this.$store.dispatch("countries", results.results);
       });
     },

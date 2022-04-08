@@ -68,7 +68,9 @@
       class="group flex flex-grow flex-col"
     >
       <template #default="{ inputValue, inputEvents }">
-        <label :for="'dob' + cid" class="my-label">Date of Birth</label>
+        <label :for="'dob' + cid" class="my-label mb-1 text-xs"
+          >Date of Birth</label
+        >
         <div class="flex flex-row place-items-center">
           <i class="fal fa-calendar fa-fw mr-2"></i>
           <input
@@ -82,7 +84,9 @@
     </date-picker>
 
     <div class="group flex flex-grow flex-col">
-      <label :for="'licenseno' + cid" class="my-label text-xs">License #</label>
+      <label :for="'licenseno' + cid" class="my-label mb-1 text-xs"
+        >License #</label
+      >
       <input
         :id="'licenseno' + cid"
         v-model="customerdata.licenseno"
@@ -99,7 +103,9 @@
       class="group flex flex-grow flex-col"
     >
       <template #default="{ inputValue, inputEvents }">
-        <label :for="'licexp' + cid" class="my-label">License Expiry</label>
+        <label :for="'licexp' + cid" class="my-label mb-1 text-xs"
+          >License Expiry</label
+        >
         <div class="flex flex-row place-items-center">
           <i class="form-i fal fa-calendar fa-fw mr-2"></i>
           <input
@@ -112,7 +118,7 @@
       </template>
     </date-picker>
     <div class="group flex flex-grow flex-col">
-      <label :for="'licenseissued' + cid" class="my-label text-xs"
+      <label :for="'licenseissued' + cid" class="my-label mb-1 text-xs"
         >License Issued In</label
       >
       <select
@@ -131,7 +137,7 @@
     </div>
 
     <div class="group flex flex-grow flex-col">
-      <label :for="'address' + cid" class="my-label text-xs"
+      <label :for="'address' + cid" class="my-label mb-1 text-xs"
         >Street Address</label
       >
       <input
@@ -143,7 +149,7 @@
       />
     </div>
     <div class="group flex flex-grow flex-col">
-      <label :for="'city' + cid" class="my-label text-xs">City</label>
+      <label :for="'city' + cid" class="my-label mb-1 text-xs">City</label>
       <input
         :id="'city' + cid"
         v-model="customerdata.city"
@@ -153,7 +159,7 @@
       />
     </div>
     <div class="group flex flex-col">
-      <label :for="'state' + cid" class="my-label">State</label>
+      <label :for="'state' + cid" class="my-label mb-1 text-xs">State</label>
       <input
         :id="'state' + cid"
         v-model="customerdata.state"
@@ -163,7 +169,9 @@
       />
     </div>
     <div class="group flex flex-col">
-      <label :for="'country' + cid" class="my-label">Country</label>
+      <label :for="'country' + cid" class="my-label mb-1 text-xs"
+        >Country</label
+      >
       <select
         :id="'country' + cid"
         v-model="customerdata.countryid"
@@ -179,7 +187,9 @@
       </select>
     </div>
     <div class="group mb-4 flex flex-grow flex-col md:mb-0">
-      <label :for="'postcode' + cid" class="my-label">Postcode</label>
+      <label :for="'postcode' + cid" class="my-label mb-1 text-xs"
+        >Postcode</label
+      >
       <input
         :id="'postcode' + cid"
         v-model="customerdata.postcode"
@@ -212,16 +222,21 @@
         Update <i class="far fa-cloud-upload"></i>
       </button>
     </div>
+    <div class="col-span-1 md:col-span-2 pt-5">
+      <modify-uploads :cid="customer.customerid"></modify-uploads>
+    </div>
   </div>
 </template>
 
 <script>
 import LoadingOverlay from "@/components/LoadingOverlay.vue";
+import ModifyUploads from "@/components/ModifyUploads.vue";
 import "v-calendar/dist/style.css";
 import Mixins from "@/Mixins";
 export default {
   components: {
     LoadingOverlay,
+    ModifyUploads,
   },
 
   mixins: [Mixins],
@@ -346,6 +361,7 @@ export default {
     },
 
     addExtraDriver(id) {
+      this.savingChanges = true;
       let params = {
         method: "extradriver",
         reservationref: this.$store.state.resref,
@@ -365,12 +381,13 @@ export default {
       Mixins.methods
         .postapiCall(params)
         .then((res) => {
-          console.log(res);
           this.$emit("update");
+          this.savingChanges = false;
         })
         .catch((err) => console.log(err));
     },
     deleteExtraDriver(id) {
+      this.savingChanges = true;
       let params = {
         method: "extradriver",
         reservationref: this.$store.state.resref,
@@ -379,8 +396,8 @@ export default {
       Mixins.methods
         .postapiCall(params)
         .then((res) => {
-          console.log(res);
           this.$emit("update");
+          this.savingChanges = false;
         })
         .catch((err) => console.log(err));
     },
