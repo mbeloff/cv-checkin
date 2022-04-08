@@ -58,8 +58,8 @@ export default {
   mixins: [Mixins],
   data() {
     return {
-      resno: "",
-      lastname: "",
+      resno: "88",
+      lastname: "test",
       missinginput: false,
       error: "",
       loading: true,
@@ -104,7 +104,7 @@ export default {
         .postapiCall(method)
         .then((res) => {
           if (res.status == "OK") {
-            console.log(res.results);
+            // console.log(res.results);
             let resref = res.results[0].reservationref;
             this.$store.dispatch("resref", resref);
             this.$router.push({ name: "Checkin" });

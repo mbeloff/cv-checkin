@@ -10,7 +10,7 @@ export default {
       fetch(Host + "/.netlify/functions/getToken", requestOptions)
         .then((response) => response.text())
         .then((result) => {
-          console.log(result);
+          // console.log(result);
           const res = JSON.parse(result);
           store.dispatch("token", res.access_token);
           store.dispatch("tokenExp", res[".expires"]);

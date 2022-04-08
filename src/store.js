@@ -7,6 +7,8 @@ export default createStore({
     token: '',
     tokenExp: '',
     resref: '',
+    bookinginfo: {},
+    countries: [],
   },
   mutations: {
     resref(state, payload) {
@@ -18,6 +20,12 @@ export default createStore({
     tokenExp(state, payload) {
       state.tokenExp = payload
     },
+    bookinginfo(state, payload) {
+      state.bookinginfo = payload
+    },
+    countries(state, payload) {
+      state.countries = payload
+    },
   },
   actions: {
     resref(context, payload) {
@@ -28,6 +36,12 @@ export default createStore({
     },
     tokenExp(context, payload) {
       context.commit('tokenExp', payload)
+    },
+    bookinginfo(context, payload) {
+      context.commit('bookinginfo', payload)
+    },
+    countries(context, payload) {
+      context.commit('countries', payload)
     },
   },
 })
