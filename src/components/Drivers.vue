@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto flex flex-col gap-2">
+  <div class="container mx-auto flex flex-col gap-5">
     <!-- CUSTOMER INFO -->
     <div class="relative flex flex-col rounded bg-white p-2 md:p-5">
       <p
@@ -74,6 +74,7 @@ export default {
     return {
       showNewDriver: false,
       showCustomer: true,
+      showExtraDrivers: false,
     };
   },
   beforeMount() {},

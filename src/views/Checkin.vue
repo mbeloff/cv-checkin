@@ -1,5 +1,5 @@
 <template>
-  <div class="relative grid h-full gap-5 bg-gray-300 py-10 px-2">
+  <div class="relative grid h-full gap-5 bg-gray-700 py-10 px-2">
     <drivers v-if="gotBooking" @update="bookingInfo()"></drivers>
 
     <!-- <modify-uploads></modify-uploads> -->
