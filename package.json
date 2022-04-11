@@ -11,7 +11,7 @@
   "dependencies": {
     "cloudinary": "^1.27.0",
     "crypto-js": "^4.0.0",
-    "netlify-cli": "^9.16.3",
+    "netlify-cli": "^9.16.4",
     "node-fetch": "^2.6.1",
     "v-calendar": "^3.0.0-alpha.8",
     "vue": "^3.2.31",
