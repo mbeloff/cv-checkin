@@ -1,45 +1,55 @@
 <template>
   <div class="container mx-auto flex flex-col gap-5">
     <!-- CUSTOMER INFO -->
-    <div class="relative flex flex-col rounded bg-white p-2 md:p-5">
-      <p
-        class="text-left text-xl font-bold"
+    <div class="rounded bg-gray-900 px-2 md:px-5">
+      <button
+        class="flex h-16 w-full items-center justify-between text-white"
         @click="showCustomer = !showCustomer"
       >
-        Customer Details
-      </p>
+        <p class="text-center text-xl font-bold">Main Hirer</p>
+        <i
+          class="far fa-chevron-down"
+          :class="{ 'rotate-180': showCustomer }"
+        ></i>
+      </button>
+
       <modify-driver
-        :class="{ 'h-10 overflow-hidden': !showCustomer }"
+        class="mb-5"
+        :class="{ hidden: !showCustomer }"
         :key="customer.customerid"
         :customer="customer"
         :is-primary="true"
         @update="$emit('update')"
       ></modify-driver>
     </div>
+
     <!-- ADDTIONAL DRIVERS -->
-    <div
-      v-show="extradrivers && extradrivers.length"
-      class="relative flex flex-col rounded bg-white p-2 md:p-5"
-    >
-      <p class="mt-2 text-left text-xl font-bold">Additional Drivers</p>
-      <p class="text-left text-sm text-gray-500">
-        Add up to 4 extra drivers. Please note that all drivers will need to
-        provide their driver's licence and sign the rental agreement.
-      </p>
-      <div class="flex flex-col gap-2">
-        <modify-driver
-          v-for="driver in extradrivers"
-          :key="driver.customerid"
-          :customer="driver"
-          @update="$emit('update')"
-        ></modify-driver>
-      </div>
+    <div class="rounded bg-gray-900 px-2 md:px-5">
+      <button
+        class="flex h-16 w-full items-center justify-between text-white"
+        @click="showExtraDrivers = !showExtraDrivers"
+      >
+        <p class="text-center text-xl font-bold">Additional Drivers</p>
+        <i
+          class="far fa-chevron-down"
+          :class="{ 'rotate-180': showExtraDrivers }"
+        ></i>
+      </button>
+
+      <modify-driver
+        v-show="extradrivers && extradrivers.length && showExtraDrivers"
+        v-for="driver in extradrivers"
+        class="mb-5"
+        :key="driver.customerid"
+        :customer="driver"
+        @update="$emit('update')"
+      ></modify-driver>
     </div>
 
     <!-- NEW DRIVER -->
     <div
       v-if="extradrivers && extradrivers.length < 4"
-      class="relative flex flex-col rounded bg-white p-2 md:p-5"
+      class="relative flex flex-col rounded bg-gray-900 p-2 md:p-5"
     >
       <button
         v-if="extradrivers && extradrivers.length < 4"
@@ -52,9 +62,6 @@
         <span v-else><i class="fas fa-plus-circle"></i> Add a Driver</span>
       </button>
 
-      <p v-if="showNewDriver" class="text-left text-xl font-bold">
-        New Driver Details
-      </p>
       <modify-driver
         v-if="showNewDriver && extradrivers.length < 4"
         :new-driver="true"

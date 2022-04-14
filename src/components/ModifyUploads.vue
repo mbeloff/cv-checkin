@@ -111,7 +111,7 @@ export default {
         sequencenumber: doc.seqno,
       };
       Mixins.methods.postapiCall(params).then((res) => {
-        console.log("upload result: ", res);
+        // console.log("upload result: ", res);
         this.getDocumentList();
       });
     },
@@ -123,7 +123,7 @@ export default {
         reservationref: this.$store.state.resref,
       };
       Mixins.methods.postapiCall(method).then((res) => {
-        console.log(res);
+        // console.log(res);
         let newdoclist = res.results.filter((el) => el.customerid == this.cid);
 
         this.doclist = newdoclist;
@@ -138,7 +138,7 @@ export default {
         documentlinkid: -id,
       };
       Mixins.methods.postapiCall(method).then((res) => {
-        console.log(res);
+        // console.log(res);
         this.getDocumentList();
       });
     },

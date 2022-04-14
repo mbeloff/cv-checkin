@@ -1,22 +1,24 @@
 <template>
-  <div class="relative grid h-full gap-5 bg-gray-700 py-10 px-2">
+  <div class="relative grid h-full content-start gap-5 bg-gray-700 py-10 px-2">
+    <the-summary
+      v-if="gotBooking"
+      :bookinginfo="this.$store.state.bookinginfo"
+    ></the-summary>
     <drivers v-if="gotBooking" @update="bookingInfo()"></drivers>
-
-    <!-- <modify-uploads></modify-uploads> -->
   </div>
 </template>
 
 <script>
 import Mixins from "@/Mixins.js";
 import LoadingOverlay from "@/components/LoadingOverlay.vue";
-// import ModifyUploads from "@/components/ModifyUploads.vue";
+import TheSummary from "@/components/Summary.vue";
 import Drivers from "@/components/Drivers.vue";
 
 export default {
   components: {
     LoadingOverlay,
     Drivers,
-    // ModifyUploads,
+    TheSummary,
   },
   mixins: [Mixins],
   data() {

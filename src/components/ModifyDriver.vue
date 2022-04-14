@@ -1,234 +1,242 @@
 <template>
-  <div
-    class="relative mt-2 grid grid-cols-1 gap-3 gap-y-1 rounded border bg-white p-2 text-left md:grid-cols-2"
-  >
+  <div class="relative mt-2 gap-y-5 rounded border bg-white p-2 text-left ">
     <loading-overlay v-if="savingChanges"></loading-overlay>
-    <div class="group flex flex-grow flex-col">
-      <label :for="'fName' + cid" class="my-label mb-1 text-xs"
-        >First Name</label
-      >
-      <input
-        :id="'fName' + cid"
-        v-model="customerdata.firstname"
-        maxlength="30"
-        required
-        type="text"
-        class="my-input"
-        :disabled="isPrimary"
-        :class="{ 'text-gray-400': isPrimary }"
-        placeholder="required"
-      />
-    </div>
-    <div class="group flex flex-grow flex-col">
-      <label :for="'lName' + cid" class="my-label mb-1 text-xs"
-        >Last Name</label
-      >
-      <input
-        :id="'lName' + cid"
-        v-model="customerdata.lastname"
-        maxlength="40"
-        required
-        type="text"
-        class="my-input"
-        :disabled="isPrimary"
-        :class="{ 'text-gray-400': isPrimary }"
-        placeholder="required"
-      />
-    </div>
-    <div class="group flex flex-grow flex-col">
-      <label :for="'email' + cid" class="my-label mb-1 text-xs">Email</label>
-      <input
-        :id="'email' + cid"
-        v-model="customerdata.email"
-        maxlength="50"
-        required
-        type="email"
-        class="my-input"
-        :disabled="isPrimary"
-        :class="{ 'text-gray-400': isPrimary }"
-        placeholder="required"
-      />
-    </div>
-    <div class="group flex flex-grow flex-col">
-      <label :for="'phone' + cid" class="my-label mb-1 text-xs">Phone</label>
-      <input
-        :id="'phone' + cid"
-        v-model="customerdata.mobile"
-        maxlength="25"
-        required
-        type="tel"
-        class="my-input"
-      />
-    </div>
-
-    <date-picker
-      v-model="dateofbirth"
-      :max-date="new Date()"
-      :update-on-input="false"
-      class="group flex flex-grow flex-col"
-    >
-      <template #default="{ inputValue, inputEvents }">
-        <label :for="'dob' + cid" class="my-label mb-1 text-xs"
-          >Date of Birth</label
+    <p class="my-3 text-lg font-bold">Personal Details</p>
+    <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
+      <div class="group flex flex-grow flex-col">
+        <label :for="'fName' + cid" class="my-label mb-1 text-xs"
+          >First Name</label
         >
-        <div class="flex flex-row place-items-center">
-          <i class="fal fa-calendar fa-fw mr-2"></i>
-          <input
-            :id="'dob' + cid"
-            class="my-input w-8"
-            :value="inputValue"
-            v-on="inputEvents"
-          />
-        </div>
-      </template>
-    </date-picker>
-
-    <div class="group flex flex-grow flex-col">
-      <label :for="'licenseno' + cid" class="my-label mb-1 text-xs"
-        >License #</label
-      >
-      <input
-        :id="'licenseno' + cid"
-        v-model="customerdata.licenseno"
-        maxlength="70"
-        type="text"
-        class="my-input"
-      />
-    </div>
-
-    <date-picker
-      v-model="licenseexpires"
-      :min-date="new Date()"
-      :update-on-input="false"
-      class="group flex flex-grow flex-col"
-    >
-      <template #default="{ inputValue, inputEvents }">
-        <label :for="'licexp' + cid" class="my-label mb-1 text-xs"
-          >License Expiry</label
+        <input
+          :id="'fName' + cid"
+          v-model="customerdata.firstname"
+          maxlength="30"
+          required
+          type="text"
+          class="my-input"
+          :disabled="isPrimary"
+          :class="{ 'text-gray-400': isPrimary }"
+          placeholder="required"
+        />
+      </div>
+      <div class="group flex flex-grow flex-col">
+        <label :for="'lName' + cid" class="my-label mb-1 text-xs"
+          >Last Name</label
         >
-        <div class="flex flex-row place-items-center">
-          <i class="form-i fal fa-calendar fa-fw mr-2"></i>
-          <input
-            :id="'licexp' + cid"
-            class="my-input w-8"
-            :value="inputValue"
-            v-on="inputEvents"
-          />
-        </div>
-      </template>
-    </date-picker>
-    <div class="group flex flex-grow flex-col">
-      <label :for="'licenseissued' + cid" class="my-label mb-1 text-xs"
-        >License Issued In</label
-      >
-      <select
-        :id="'licenseissued' + cid"
-        v-model="customerdata.licenseissued"
-        class="my-input"
-      >
-        <option
-          v-for="country in countries"
-          :key="country.id"
-          :value="country.country"
-        >
-          {{ country.country }}
-        </option>
-      </select>
-    </div>
+        <input
+          :id="'lName' + cid"
+          v-model="customerdata.lastname"
+          maxlength="40"
+          required
+          type="text"
+          class="my-input"
+          :disabled="isPrimary"
+          :class="{ 'text-gray-400': isPrimary }"
+          placeholder="required"
+        />
+      </div>
+      <div class="group flex flex-grow flex-col">
+        <label :for="'email' + cid" class="my-label mb-1 text-xs">Email</label>
+        <input
+          :id="'email' + cid"
+          v-model="customerdata.email"
+          maxlength="50"
+          required
+          type="email"
+          class="my-input"
+          :disabled="isPrimary"
+          :class="{ 'text-gray-400': isPrimary }"
+          placeholder="required"
+        />
+      </div>
+      <div class="group flex flex-grow flex-col">
+        <label :for="'phone' + cid" class="my-label mb-1 text-xs">Phone</label>
+        <input
+          :id="'phone' + cid"
+          v-model="customerdata.mobile"
+          maxlength="25"
+          required
+          type="tel"
+          class="my-input"
+        />
+      </div>
 
-    <div class="group flex flex-grow flex-col">
-      <label :for="'address' + cid" class="my-label mb-1 text-xs"
-        >Street Address</label
+      <date-picker
+        v-model="dateofbirth"
+        :max-date="new Date()"
+        :update-on-input="false"
+        class="group flex flex-grow flex-col"
       >
-      <input
-        :id="'address' + cid"
-        v-model="customerdata.address"
-        maxlength="80"
-        type="text"
-        class="my-input"
-      />
-    </div>
-    <div class="group flex flex-grow flex-col">
-      <label :for="'city' + cid" class="my-label mb-1 text-xs">City</label>
-      <input
-        :id="'city' + cid"
-        v-model="customerdata.city"
-        maxlength="50"
-        type="text"
-        class="my-input"
-      />
-    </div>
-    <div class="group flex flex-col">
-      <label :for="'state' + cid" class="my-label mb-1 text-xs">State</label>
-      <input
-        :id="'state' + cid"
-        v-model="customerdata.state"
-        maxlength="30"
-        type="text"
-        class="my-input"
-      />
-    </div>
-    <div class="group flex flex-col">
-      <label :for="'country' + cid" class="my-label mb-1 text-xs"
-        >Country</label
-      >
-      <select
-        :id="'country' + cid"
-        v-model="customerdata.countryid"
-        class="my-input"
-      >
-        <option
-          v-for="country in countries"
-          :key="country.id"
-          :value="country.id"
-        >
-          {{ country.country }}
-        </option>
-      </select>
-    </div>
-    <div class="group mb-4 flex flex-grow flex-col md:mb-0">
-      <label :for="'postcode' + cid" class="my-label mb-1 text-xs"
-        >Postcode</label
-      >
-      <input
-        :id="'postcode' + cid"
-        v-model="customerdata.postcode"
-        maxlength="10"
-        type="text"
-        class="my-input"
-      />
-    </div>
+        <template #default="{ inputValue, inputEvents }">
+          <label :for="'dob' + cid" class="my-label mb-1 text-xs"
+            >Date of Birth</label
+          >
+          <div class="flex flex-row place-items-center">
+            <i class="fal fa-calendar fa-fw mr-2"></i>
+            <input
+              :id="'dob' + cid"
+              class="my-input w-8"
+              :value="inputValue"
+              v-on="inputEvents"
+            />
+          </div>
+        </template>
+      </date-picker>
 
-    <div class="mt-auto grid h-8 grid-cols-2 gap-3">
-      <button
-        v-if="!newDriver && !isPrimary"
-        class="btn-red"
-        @click="deleteExtraDriver(-customerdata.customerid)"
+      <div class="group flex flex-grow flex-col">
+        <label :for="'licenseno' + cid" class="my-label mb-1 text-xs"
+          >License #</label
+        >
+        <input
+          :id="'licenseno' + cid"
+          v-model="customerdata.licenseno"
+          maxlength="70"
+          type="text"
+          class="my-input"
+        />
+      </div>
+
+      <date-picker
+        v-model="licenseexpires"
+        :min-date="new Date()"
+        :update-on-input="false"
+        class="group flex flex-grow flex-col"
       >
-        Delete <i class="far fa-times"></i>
-      </button>
-      <button
-        v-if="!isPrimary"
-        class="btn-green col-start-2"
-        @click="addExtraDriver(customerdata.customerid)"
-      >
-        {{ !newDriver ? "Update" : "Add" }} <i class="far fa-cloud-upload"></i>
-      </button>
-      <button
-        v-if="isPrimary"
-        class="btn-green col-start-2"
-        @click="editBooking()"
-      >
-        Update <i class="far fa-cloud-upload"></i>
-      </button>
+        <template #default="{ inputValue, inputEvents }">
+          <label :for="'licexp' + cid" class="my-label mb-1 text-xs"
+            >License Expiry</label
+          >
+          <div class="flex flex-row place-items-center">
+            <i class="form-i fal fa-calendar fa-fw mr-2"></i>
+            <input
+              :id="'licexp' + cid"
+              class="my-input w-8"
+              :value="inputValue"
+              v-on="inputEvents"
+            />
+          </div>
+        </template>
+      </date-picker>
+      <div class="group flex flex-grow flex-col">
+        <label :for="'licenseissued' + cid" class="my-label mb-1 text-xs"
+          >License Issued In</label
+        >
+        <select
+          :id="'licenseissued' + cid"
+          v-model="customerdata.licenseissued"
+          class="my-input"
+        >
+          <option
+            v-for="country in countries"
+            :key="country.id"
+            :value="country.country"
+          >
+            {{ country.country }}
+          </option>
+        </select>
+      </div>
+
+      <div class="group flex flex-grow flex-col">
+        <label :for="'address' + cid" class="my-label mb-1 text-xs"
+          >Street Address</label
+        >
+        <input
+          :id="'address' + cid"
+          v-model="customerdata.address"
+          maxlength="80"
+          type="text"
+          class="my-input"
+        />
+      </div>
+      <div class="group flex flex-grow flex-col">
+        <label :for="'city' + cid" class="my-label mb-1 text-xs">City</label>
+        <input
+          :id="'city' + cid"
+          v-model="customerdata.city"
+          maxlength="50"
+          type="text"
+          class="my-input"
+        />
+      </div>
+      <div class="group flex flex-col">
+        <label :for="'state' + cid" class="my-label mb-1 text-xs">State</label>
+        <input
+          :id="'state' + cid"
+          v-model="customerdata.state"
+          maxlength="30"
+          type="text"
+          class="my-input"
+        />
+      </div>
+      <div class="group flex flex-col">
+        <label :for="'country' + cid" class="my-label mb-1 text-xs"
+          >Country</label
+        >
+        <select
+          :id="'country' + cid"
+          v-model="customerdata.countryid"
+          class="my-input"
+        >
+          <option
+            v-for="country in countries"
+            :key="country.id"
+            :value="country.id"
+          >
+            {{ country.country }}
+          </option>
+        </select>
+      </div>
+      <div class="group mb-4 flex flex-grow flex-col md:mb-0">
+        <label :for="'postcode' + cid" class="my-label mb-1 text-xs"
+          >Postcode</label
+        >
+        <input
+          :id="'postcode' + cid"
+          v-model="customerdata.postcode"
+          maxlength="10"
+          type="text"
+          class="my-input"
+        />
+      </div>
+
+      <div class="mt-auto grid h-8 grid-cols-2 gap-3">
+        <button
+          v-if="!newDriver && !isPrimary"
+          class="btn-red"
+          @click="deleteExtraDriver(-customerdata.customerid)"
+        >
+          Delete Driver <i class="far fa-times"></i>
+        </button>
+        <button
+          v-if="!isPrimary"
+          class="btn-green col-start-2"
+          @click="addExtraDriver(customerdata.customerid)"
+        >
+          {{ !newDriver ? "Update" : "Add" }}
+          <i class="far fa-cloud-upload"></i>
+        </button>
+        <button
+          v-if="isPrimary"
+          class="btn-green col-start-2"
+          @click="editBooking()"
+        >
+          Update <i class="far fa-cloud-upload"></i>
+        </button>
+      </div>
     </div>
-    <div class="col-span-1 md:col-span-2 pt-5">
+    <p v-if="!newDriver" class="my-3 text-lg font-bold">Document Uploads</p>
+    <div class="">
       <modify-uploads :cid="customer.customerid"></modify-uploads>
+    </div>
+    <p v-if="!newDriver" class="my-3 text-lg font-bold">E-signature</p>
+    <div class="">
+      <signature-section :cid="customer.customerid"></signature-section>
     </div>
   </div>
 </template>
 
 <script>
+import SignatureSection from "@/components/SignatureSection.vue";
 import LoadingOverlay from "@/components/LoadingOverlay.vue";
 import ModifyUploads from "@/components/ModifyUploads.vue";
 import "v-calendar/dist/style.css";
@@ -237,6 +245,7 @@ export default {
   components: {
     LoadingOverlay,
     ModifyUploads,
+    SignatureSection,
   },
 
   mixins: [Mixins],
@@ -418,9 +427,9 @@ export default {
           ...this.customerdata,
         },
       };
-      console.log(params);
+      // console.log(params);
       Mixins.methods.postapiCall(params).then((res) => {
-        console.log(res);
+        // console.log(res);
         this.savingChanges = false;
         this.$emit("update");
       });
