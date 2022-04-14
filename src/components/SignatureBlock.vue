@@ -2,13 +2,13 @@
   <div class="mb-2 flex flex-col gap-1 p-1">
     <div class="relative" v-if="showSig">
       <VueSignaturePad
-        class="aspect-[4/1] max-w-[400px] rounded border border-orange-500/50"
+        class="aspect-[4/1] max-w-[400px] rounded border border-orange-500"
         :ref="sigid"
         :options="{ onBegin }"
         :scaleToDevicePixelRatio="false"
       />
       <div
-        class="absolute bottom-0 flex w-max items-center gap-2 rounded border border-orange-500 bg-white px-1 text-xs text-orange-500"
+        class="absolute bottom-0 flex w-max items-center gap-2 rounded-bl rounded-tr border border-orange-500 bg-white px-1 text-xs text-orange-500"
       >
         <span> signature required</span>
         <i class="fas fa-warning"></i>
@@ -20,10 +20,10 @@
         :id="sigid"
         src=""
         alt=""
-        class="aspect-[4/1] max-w-[400px] rounded border border-green-500/50 bg-cover bg-no-repeat"
+        class="aspect-[4/1] max-w-[400px] rounded border border-green-500 bg-cover bg-no-repeat"
       ></div>
       <div
-        class="absolute bottom-0 flex w-max items-center gap-2 rounded border border-green-500 bg-white px-1 text-xs text-green-500"
+        class="absolute bottom-0 flex w-max items-center gap-2 rounded-bl rounded-tr border border-green-500 bg-white px-1 text-xs text-green-600"
       >
         <span> signed: {{ signature.signeddatetime }}</span>
         <i class="fas fa-check-circle"></i>
@@ -32,7 +32,7 @@
 
     <div v-if="started && !saved" class="flex gap-2">
       <button class="btn-green" @click="save">Save</button>
-      <button class="btn-red" @click="undo">Undo</button>
+      <button class="btn-red" @click="clear">Clear</button>
     </div>
     <p v-if="signature.signaturetemplateid == 0" class="text-xs text-gray-600">
       I hereby agree to the terms and conditions of
@@ -106,8 +106,8 @@ export default {
       this.pad.resizeCanvas();
       this.started = true;
     },
-    undo() {
-      this.pad.undoSignature();
+    clear() {
+      this.pad.clearSignature();
     },
     async save() {
       let isExtraDriver =

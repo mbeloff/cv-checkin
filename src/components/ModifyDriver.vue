@@ -205,7 +205,7 @@
           class="btn-red"
           @click="deleteExtraDriver(-customerdata.customerid)"
         >
-          Delete Driver <i class="far fa-times"></i>
+          Delete Driver <i class="fas fa-trash-can-xmark"></i>
         </button>
         <button
           v-if="!isPrimary"
@@ -233,6 +233,7 @@
     </div>
     <p v-if="!newDriver" class="my-3 text-lg font-bold">E-signature</p>
     <div class="">
+      <p class="italic text-sm text-gray-600">You can use your mouse or touch-screen to sign each require section below. Click save when you are finished.</p>
       <signature-section
         @update-section-status="signatureMissing = $event"
         :cid="customer.customerid"

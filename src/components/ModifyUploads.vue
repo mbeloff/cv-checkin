@@ -10,7 +10,7 @@
         'border-green-500': doc.isuploaded,
         'border-orange-500': !doc.isuploaded,
       }"
-      class="relative mx-auto flex h-full w-full max-w-full flex-col rounded border bg-gray-200 md:w-56"
+      class="relative mx-auto flex h-full w-full max-w-full cursor-pointer flex-col rounded border bg-gray-200 md:w-56 hover:ring-2"
       @click="handleDoc(doc)"
     >
       <div class="flex items-center justify-between pr-2">
@@ -19,7 +19,7 @@
         </p>
         <div
           v-show="doc.isuploaded == 0"
-          class="btn-green absolute top-1 right-1 bg-white"
+          class="absolute top-1 right-1 rounded border border-green-500 bg-white px-2 text-sm text-green-500"
         >
           upload
         </div>
@@ -37,14 +37,14 @@
 
           <div
             v-if="doc.isuploaded"
-            class="absolute -bottom-px -left-px flex w-max items-center gap-2 rounded-bl-sm border border-green-500 bg-white px-1 text-xs text-green-500"
+            class="absolute -bottom-px -left-px flex w-max items-center gap-2 rounded-bl rounded-tr border border-green-500 bg-white px-1 text-xs text-green-500"
           >
             <span>uploaded</span>
             <i class="fas fa-check-circle"></i>
           </div>
           <div
             v-else
-            class="absolute -bottom-px -left-px flex w-max items-center gap-2 rounded-bl-sm border border-orange-500 bg-white px-1 text-xs text-orange-500"
+            class="absolute -bottom-px -left-px flex w-max items-center gap-2 rounded-bl rounded-tr border border-orange-500 bg-white px-1 text-xs text-orange-500"
           >
             <span>required</span>
             <i class="fas fa-warning"></i>
