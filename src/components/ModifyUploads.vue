@@ -1,46 +1,54 @@
 <template>
   <div
-    class="container relative mx-auto grid grid-cols-1 gap-1 rounded bg-white md:grid-cols-3"
+    class="container mx-auto grid grid-cols-1 gap-1 rounded bg-white md:grid-cols-3"
   >
     <loading-overlay v-if="loading"></loading-overlay>
-    <div v-for="(doc, i) in doclist" :key="i" class="flex h-full flex-col">
-      <p class="rounded-t bg-gray-300 px-2 py-1 font-bold text-gray-600">
-        {{ docTitle(doc.title) }}
-      </p>
-      <div
-        class="mb-1 flex flex-1 rounded border bg-gray-200 p-1 text-left text-sm md:mb-0"
-      >
-        <div class="flex flex-grow flex-col justify-between p-2">
-          <div>
-            <!-- <p class="font-bold">
-              {{ doc.customerlastname + ", " + doc.customerfirstname }}
-            </p> -->
-            <p>{{ replaceDocText(doc.title) }}</p>
-          </div>
-
-          <span v-if="doc.isuploaded" class="text-sm font-normal text-green-600"
-            ><i class="far fa-check"></i> uploaded</span
-          >
-        </div>
-
+    <div
+      v-for="(doc, i) in doclist"
+      :key="i"
+      :class="{
+        'border-green-500': doc.isuploaded,
+        'border-orange-500': !doc.isuploaded,
+      }"
+      class="relative mx-auto flex h-full w-full max-w-full flex-col rounded border bg-gray-200 md:w-56"
+      @click="handleDoc(doc)"
+    >
+      <div class="flex items-center justify-between pr-2">
+        <p class="rounded-t px-2 py-1 font-bold">
+          {{ docTitle(doc.title) }}
+        </p>
         <div
-          class="grid flex-shrink items-center rounded bg-gray-100 p-2 text-center"
-          @click="handleDoc(doc)"
+          v-show="doc.isuploaded == 0"
+          class="btn-green absolute top-1 right-1 bg-white"
         >
-          <span class="fa-stack mx-auto text-lg">
-            <i
-              :class="iconClass(doc)"
-              class="far fa-stack-2x text-gray-500"
-            ></i>
-            <i
-              :class="{ 'opacity-0': doc.isuploaded == 0 }"
-              class="fas fa-check fa-stack-1x text-green-500"
-            ></i>
-          </span>
-          <button v-show="doc.isuploaded == 0" class="btn-green mt-1">
-            upload
-          </button>
-          <button v-show="doc.isuploaded" class="btn-red mt-1">delete</button>
+          upload
+        </div>
+        <div
+          v-show="doc.isuploaded"
+          class="absolute top-1 right-1 rounded border border-green-500 bg-white px-2 text-sm"
+        >
+          <i class="fas fa-trash-can-xmark"></i>
+        </div>
+      </div>
+
+      <div class="mb-1 flex flex-1 rounded border text-left text-sm md:mb-0">
+        <div class="flex flex-grow flex-col justify-between pb-5">
+          <p class="px-2">{{ replaceDocText(doc.title) }}</p>
+
+          <div
+            v-if="doc.isuploaded"
+            class="absolute -bottom-px -left-px flex w-max items-center gap-2 rounded-bl-sm border border-green-500 bg-white px-1 text-xs text-green-500"
+          >
+            <span>uploaded</span>
+            <i class="fas fa-check-circle"></i>
+          </div>
+          <div
+            v-else
+            class="absolute -bottom-px -left-px flex w-max items-center gap-2 rounded-bl-sm border border-orange-500 bg-white px-1 text-xs text-orange-500"
+          >
+            <span>required</span>
+            <i class="fas fa-warning"></i>
+          </div>
         </div>
       </div>
     </div>
@@ -61,11 +69,22 @@ export default {
   data() {
     return {
       loading: false,
-      doclist: {},
+      doclist: [],
     };
   },
   beforeMount() {
     this.getDocumentList();
+  },
+  watch: {
+    doclist: function (val) {
+      let missing = false;
+      val.forEach((el) => {
+        if (!el.isuploaded) {
+          missing = true;
+        }
+      });
+      this.$emit("update-section-status", missing);
+    },
   },
   methods: {
     handleDoc(doc) {
@@ -73,7 +92,9 @@ export default {
         this.openCloudinaryWidget(doc);
         return;
       }
-      this.deleteUpload(doc.documentlinkid);
+      if (confirm("You are about to delete this document. Are you sure?")) {
+        this.deleteUpload(doc.documentlinkid);
+      }
     },
     openCloudinaryWidget(doc) {
       let res;
@@ -111,7 +132,6 @@ export default {
         sequencenumber: doc.seqno,
       };
       Mixins.methods.postapiCall(params).then((res) => {
-        // console.log("upload result: ", res);
         this.getDocumentList();
       });
     },
@@ -123,7 +143,6 @@ export default {
         reservationref: this.$store.state.resref,
       };
       Mixins.methods.postapiCall(method).then((res) => {
-        // console.log(res);
         let newdoclist = res.results.filter((el) => el.customerid == this.cid);
 
         this.doclist = newdoclist;
@@ -138,7 +157,6 @@ export default {
         documentlinkid: -id,
       };
       Mixins.methods.postapiCall(method).then((res) => {
-        // console.log(res);
         this.getDocumentList();
       });
     },

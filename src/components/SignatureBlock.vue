@@ -1,6 +1,6 @@
 <template>
   <div class="mb-2 flex flex-col gap-1 p-1">
-    <div class="relative" v-if="!signature.issigned && !saved">
+    <div class="relative" v-if="showSig">
       <VueSignaturePad
         class="aspect-[4/1] max-w-[400px] rounded border border-orange-500/50"
         :ref="sigid"
@@ -65,6 +65,13 @@ export default {
       saved: false,
     };
   },
+  watch: {
+    showSig: function (value) {
+      this.$nextTick(function () {
+        this.pad.resizeCanvas();
+      });
+    },
+  },
   computed: {
     sigid() {
       let str =
@@ -76,6 +83,9 @@ export default {
     },
     pad() {
       return this.$refs[this.sigid];
+    },
+    showSig() {
+      return !this.signature.issigned && !this.saved;
     },
   },
   mounted() {
@@ -93,6 +103,7 @@ export default {
   methods: {
     onBegin() {
       console.log("---started---");
+      this.pad.resizeCanvas();
       this.started = true;
     },
     undo() {
@@ -124,7 +135,6 @@ export default {
             console.log("signature saved successfully");
             this.$emit("updateSignature");
             this.saved = true;
-            this.pad.lockSignaturePad();
           }
         });
       }

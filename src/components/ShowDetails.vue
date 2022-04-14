@@ -6,7 +6,14 @@
         class="flex h-16 w-full items-center justify-between text-white"
         @click="showCustomer = !showCustomer"
       >
-        <p class="text-center text-xl font-bold">Main Hirer</p>
+        <p class="text-center text-xl font-bold">
+          Main Hirer
+          <span
+            v-if="actionRequiredMain"
+            class="text-sm font-normal text-orange-300"
+            ><i class="far fa-warning"></i> action required</span
+          >
+        </p>
         <i
           class="far fa-chevron-down"
           :class="{ 'rotate-180': showCustomer }"
@@ -20,6 +27,7 @@
         :customer="customer"
         :is-primary="true"
         @update="$emit('update')"
+        @action-required="actionRequiredMain = $event"
       ></modify-driver>
     </div>
 
@@ -29,7 +37,14 @@
         class="flex h-16 w-full items-center justify-between text-white"
         @click="showExtraDrivers = !showExtraDrivers"
       >
-        <p class="text-center text-xl font-bold">Additional Drivers</p>
+        <p class="text-center text-xl font-bold">
+          Additional Drivers
+          <span
+            v-if="driversRequireAction > 0"
+            class="text-sm font-normal text-orange-300"
+            ><i class="far fa-warning"></i> action required</span
+          >
+        </p>
         <i
           class="far fa-chevron-down"
           :class="{ 'rotate-180': showExtraDrivers }"
@@ -43,6 +58,7 @@
         :key="driver.customerid"
         :customer="driver"
         @update="$emit('update')"
+        @action-required="actionRequiredAdditional[driver.customerid] = $event"
       ></modify-driver>
     </div>
 
@@ -80,8 +96,10 @@ export default {
   data() {
     return {
       showNewDriver: false,
-      showCustomer: true,
+      showCustomer: false,
       showExtraDrivers: false,
+      actionRequiredMain: undefined,
+      actionRequiredAdditional: {},
     };
   },
   beforeMount() {},
@@ -93,6 +111,14 @@ export default {
     },
     extradrivers() {
       return this.$store.state.bookinginfo.extradrivers;
+    },
+    driversRequireAction() {
+      let count = 0;
+      Object.values(this.actionRequiredAdditional).forEach((el) => {
+        console.log(el);
+        if (el == true) count++;
+      });
+      return count;
     },
   },
   created() {},

@@ -18,6 +18,7 @@ export default {
   props: {
     cid: { type: Number, required: true },
   },
+  emits: ["update-section-status"],
   components: {
     LoadingOverlay,
     SignatureBlock,
@@ -30,6 +31,17 @@ export default {
   mixins: [Mixins],
   beforeMount() {
     this.getSignatures();
+  },
+  watch: {
+    signatureList: function (val) {
+      let missing = false;
+      val.forEach((el) => {
+        if (!el.issigned) {
+          missing = true;
+        }
+      });
+      this.$emit("update-section-status", missing);
+    },
   },
   methods: {
     getSignatures() {

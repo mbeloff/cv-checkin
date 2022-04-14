@@ -1,5 +1,5 @@
 <template>
-  <div class="relative mt-2 gap-y-5 rounded border bg-white p-2 text-left ">
+  <div class="relative mt-2 gap-y-5 rounded border bg-white p-2 text-left">
     <loading-overlay v-if="savingChanges"></loading-overlay>
     <p class="my-3 text-lg font-bold">Personal Details</p>
     <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
@@ -186,7 +186,7 @@
           </option>
         </select>
       </div>
-      <div class="group mb-4 flex flex-grow flex-col md:mb-0">
+      <div class="group flex flex-grow flex-col md:mb-0">
         <label :for="'postcode' + cid" class="my-label mb-1 text-xs"
           >Postcode</label
         >
@@ -226,11 +226,17 @@
     </div>
     <p v-if="!newDriver" class="my-3 text-lg font-bold">Document Uploads</p>
     <div class="">
-      <modify-uploads :cid="customer.customerid"></modify-uploads>
+      <modify-uploads
+        @update-section-status="uploadMissing = $event"
+        :cid="customer.customerid"
+      ></modify-uploads>
     </div>
     <p v-if="!newDriver" class="my-3 text-lg font-bold">E-signature</p>
     <div class="">
-      <signature-section :cid="customer.customerid"></signature-section>
+      <signature-section
+        @update-section-status="signatureMissing = $event"
+        :cid="customer.customerid"
+      ></signature-section>
     </div>
   </div>
 </template>
@@ -287,10 +293,12 @@ export default {
       },
     },
   },
-  emits: ["update"],
+  emits: ["update", "actionRequired"],
 
   data() {
     return {
+      signatureMissing: "",
+      uploadMissing: "",
       savingChanges: false,
       customerdata: {},
       dateofbirth: new Date(),
@@ -322,6 +330,9 @@ export default {
     bookinginfo() {
       return this.$store.state.bookinginfo;
     },
+    actionRequired() {
+      return this.signatureMissing || this.uploadMissing;
+    },
   },
 
   watch: {
@@ -332,6 +343,9 @@ export default {
     licenseexpires: function () {
       this.customerdata.licenseexpires =
         this.licenseexpires.toLocaleDateString("en-AU");
+    },
+    actionRequired: function (val) {
+      this.$emit("actionRequired", val);
     },
   },
   mounted() {
@@ -427,9 +441,7 @@ export default {
           ...this.customerdata,
         },
       };
-      // console.log(params);
       Mixins.methods.postapiCall(params).then((res) => {
-        // console.log(res);
         this.savingChanges = false;
         this.$emit("update");
       });

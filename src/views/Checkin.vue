@@ -4,7 +4,7 @@
       v-if="gotBooking"
       :bookinginfo="this.$store.state.bookinginfo"
     ></the-summary>
-    <drivers v-if="gotBooking" @update="bookingInfo()"></drivers>
+    <show-details v-if="gotBooking" @update="bookingInfo()"></show-details>
   </div>
 </template>
 
@@ -12,12 +12,12 @@
 import Mixins from "@/Mixins.js";
 import LoadingOverlay from "@/components/LoadingOverlay.vue";
 import TheSummary from "@/components/Summary.vue";
-import Drivers from "@/components/Drivers.vue";
+import ShowDetails from "@/components/ShowDetails.vue";
 
 export default {
   components: {
     LoadingOverlay,
-    Drivers,
+    ShowDetails,
     TheSummary,
   },
   mixins: [Mixins],
