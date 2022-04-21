@@ -1,6 +1,6 @@
 <template>
   <div
-    class="container mx-auto flex max-w-screen-sm flex-col justify-between rounded bg-gray-400"
+    class="w-full max-w-screen-md mx-auto flex flex-col justify-between rounded bg-gray-400"
   >
     <p class="p-2 font-bold">
       Booking Number: {{ bookinginfo.bookinginfo[0].reservationdocumentno }}

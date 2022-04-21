@@ -1,7 +1,7 @@
 <template>
   <div class="relative mt-2 gap-y-5 rounded border bg-white p-2 text-left">
     <loading-overlay v-if="savingChanges"></loading-overlay>
-    <p class="my-3 text-lg font-bold">Personal Details</p>
+    <p class="my-3 text-xl font-bold">Personal Details</p>
     <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
       <div class="group flex flex-grow flex-col">
         <label :for="'fName' + cid" class="my-label mb-1 text-xs"
@@ -224,16 +224,18 @@
         </button>
       </div>
     </div>
-    <p v-if="!newDriver" class="my-3 text-lg font-bold">Document Uploads</p>
-    <div class="">
+    
+    <div class="my-10" v-if="!newDriver">
+      <p  class="my-3 text-xl font-bold">Document Uploads</p>
       <modify-uploads
         @update-section-status="uploadMissing = $event"
         :cid="customer.customerid"
       ></modify-uploads>
     </div>
-    <p v-if="!newDriver" class="my-3 text-lg font-bold">E-signature</p>
-    <div class="">
-      <p class="italic text-sm text-gray-600">You can use your mouse or touch-screen to sign each require section below. Click save when you are finished.</p>
+    
+    <div class="" v-if="!newDriver">
+      <p  class="my-3 text-xl font-bold">E-signature</p>
+      <p class="italic text-sm text-gray-600">Please read and sign each required section using your mouse or touch-screen. Click save when you are finished.</p>
       <signature-section
         @update-section-status="signatureMissing = $event"
         :cid="customer.customerid"

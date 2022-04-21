@@ -1,6 +1,6 @@
 <template>
   <div
-    class="container mx-auto grid grid-cols-1 gap-1 rounded bg-white md:grid-cols-3"
+    class="w-full md:w-max grid grid-cols-1 gap-1 rounded bg-white md:grid-cols-3"
   >
     <loading-overlay v-if="loading"></loading-overlay>
     <div

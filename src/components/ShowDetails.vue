@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto flex flex-col gap-5">
+  <div class="w-full max-w-screen-md mx-auto flex flex-col gap-5">
     <!-- CUSTOMER INFO -->
     <div class="rounded bg-gray-900 px-2 md:px-5">
       <button
@@ -115,7 +115,6 @@ export default {
     driversRequireAction() {
       let count = 0;
       Object.values(this.actionRequiredAdditional).forEach((el) => {
-        console.log(el);
         if (el == true) count++;
       });
       return count;
