@@ -1,9 +1,9 @@
 <template>
   <div class="w-full max-w-screen-md mx-auto flex flex-col gap-5">
     <!-- CUSTOMER INFO -->
-    <div class="rounded bg-gray-900 px-2 md:px-5">
+    <div class="rounded bg-gray-900 ">
       <button
-        class="flex h-16 w-full items-center justify-between text-white"
+        class="flex h-16 w-full items-center justify-between text-white px-2 md:px-5"
         @click="showCustomer = !showCustomer"
       >
         <p class="text-center text-xl font-bold">
@@ -19,22 +19,24 @@
           :class="{ 'rotate-180': showCustomer }"
         ></i>
       </button>
-
-      <modify-driver
-        class="mb-5"
-        :class="{ hidden: !showCustomer }"
+      <div class="px-2 md:px-5">
+        <modify-driver
+        class="mb-5 "
+        v-show="showCustomer"
         :key="customer.customerid"
         :customer="customer"
         :is-primary="true"
         @update="$emit('update')"
         @action-required="actionRequiredMain = $event"
       ></modify-driver>
+      </div>
+      
     </div>
 
     <!-- ADDTIONAL DRIVERS -->
-    <div class="rounded bg-gray-900 px-2 md:px-5">
+    <div class="rounded bg-gray-900">
       <button
-        class="flex h-16 w-full items-center justify-between text-white"
+        class="flex h-16 w-full items-center justify-between text-white px-2 md:px-5"
         @click="showExtraDrivers = !showExtraDrivers"
       >
         <p class="text-center text-xl font-bold">
@@ -50,8 +52,8 @@
           :class="{ 'rotate-180': showExtraDrivers }"
         ></i>
       </button>
-
-      <modify-driver
+<div class="px-2 md:px-5">
+  <modify-driver
         v-show="extradrivers && extradrivers.length && showExtraDrivers"
         v-for="driver in extradrivers"
         class="mb-5"
@@ -60,6 +62,8 @@
         @update="$emit('update')"
         @action-required="actionRequiredAdditional[driver.customerid] = $event"
       ></modify-driver>
+</div>
+      
     </div>
 
     <!-- NEW DRIVER -->
@@ -88,10 +92,11 @@
 </template>
 
 <script>
+import smoothReflow from 'vue-smooth-reflow'
 import Mixins from "@/Mixins.js";
 import ModifyDriver from "@/components/ModifyDriver.vue";
 export default {
-  mixins: [Mixins],
+  mixins: [Mixins, smoothReflow],
   components: { ModifyDriver },
   data() {
     return {
@@ -122,6 +127,9 @@ export default {
   },
   created() {},
   methods: {},
+  mounted() {
+    this.$smoothReflow()
+  }
 };
 </script>
 
