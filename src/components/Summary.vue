@@ -3,8 +3,9 @@
     class="w-full max-w-screen-md mx-auto flex flex-col justify-between rounded bg-gray-400"
   >
     <p class="p-2 font-bold">
-      Booking Number: {{ bookinginfo.bookinginfo[0].reservationdocumentno }}
+      Booking Reference: {{ bookinginfo.bookinginfo[0].reservationdocumentno }}
     </p>
+    <p></p>
     <p>{{ trip.vehiclecategory }}</p>
     <div class="my-2 grid grid-cols-2 p-2 text-left">
       <p>Picking up:</p>

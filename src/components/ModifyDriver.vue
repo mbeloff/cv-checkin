@@ -1,10 +1,10 @@
 <template>
   <div class="relative mt-2 gap-y-5 rounded border bg-white p-2 text-left">
     <loading-overlay v-if="savingChanges"></loading-overlay>
-    <p class="my-3 text-xl font-bold">Personal Details</p>
-    <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
+    <p class="my-3 text-xl font-bold">Driver Details</p>
+    <div class="grid grid-cols-1 gap-2 md:grid-cols-2">
       <div class="group flex flex-grow flex-col">
-        <label :for="'fName' + cid" class="my-label mb-1 text-xs"
+        <label :for="'fName' + cid" class="my-label"
           >First Name</label
         >
         <input
@@ -20,7 +20,7 @@
         />
       </div>
       <div class="group flex flex-grow flex-col">
-        <label :for="'lName' + cid" class="my-label mb-1 text-xs"
+        <label :for="'lName' + cid" class="my-label"
           >Last Name</label
         >
         <input
@@ -36,7 +36,7 @@
         />
       </div>
       <div class="group flex flex-grow flex-col">
-        <label :for="'email' + cid" class="my-label mb-1 text-xs">Email</label>
+        <label :for="'email' + cid" class="my-label">Email</label>
         <input
           :id="'email' + cid"
           v-model="customerdata.email"
@@ -50,7 +50,7 @@
         />
       </div>
       <div class="group flex flex-grow flex-col">
-        <label :for="'phone' + cid" class="my-label mb-1 text-xs">Phone</label>
+        <label :for="'phone' + cid" class="my-label">Phone</label>
         <input
           :id="'phone' + cid"
           v-model="customerdata.mobile"
@@ -68,7 +68,7 @@
         class="group flex flex-grow flex-col"
       >
         <template #default="{ inputValue, inputEvents }">
-          <label :for="'dob' + cid" class="my-label mb-1 text-xs"
+          <label :for="'dob' + cid" class="my-label"
             >Date of Birth</label
           >
           <div class="flex flex-row place-items-center">
@@ -84,7 +84,7 @@
       </date-picker>
 
       <div class="group flex flex-grow flex-col">
-        <label :for="'licenseno' + cid" class="my-label mb-1 text-xs"
+        <label :for="'licenseno' + cid" class="my-label"
           >License #</label
         >
         <input
@@ -103,7 +103,7 @@
         class="group flex flex-grow flex-col"
       >
         <template #default="{ inputValue, inputEvents }">
-          <label :for="'licexp' + cid" class="my-label mb-1 text-xs"
+          <label :for="'licexp' + cid" class="my-label"
             >License Expiry</label
           >
           <div class="flex flex-row place-items-center">
@@ -118,7 +118,7 @@
         </template>
       </date-picker>
       <div class="group flex flex-grow flex-col">
-        <label :for="'licenseissued' + cid" class="my-label mb-1 text-xs"
+        <label :for="'licenseissued' + cid" class="my-label"
           >License Issued In</label
         >
         <select
@@ -137,7 +137,7 @@
       </div>
 
       <div class="group flex flex-grow flex-col">
-        <label :for="'address' + cid" class="my-label mb-1 text-xs"
+        <label :for="'address' + cid" class="my-label"
           >Street Address</label
         >
         <input
@@ -149,7 +149,7 @@
         />
       </div>
       <div class="group flex flex-grow flex-col">
-        <label :for="'city' + cid" class="my-label mb-1 text-xs">City</label>
+        <label :for="'city' + cid" class="my-label">City</label>
         <input
           :id="'city' + cid"
           v-model="customerdata.city"
@@ -159,7 +159,7 @@
         />
       </div>
       <div class="group flex flex-col">
-        <label :for="'state' + cid" class="my-label mb-1 text-xs">State</label>
+        <label :for="'state' + cid" class="my-label">State</label>
         <input
           :id="'state' + cid"
           v-model="customerdata.state"
@@ -169,7 +169,7 @@
         />
       </div>
       <div class="group flex flex-col">
-        <label :for="'country' + cid" class="my-label mb-1 text-xs"
+        <label :for="'country' + cid" class="my-label"
           >Country</label
         >
         <select
@@ -187,7 +187,7 @@
         </select>
       </div>
       <div class="group flex flex-grow flex-col md:mb-0">
-        <label :for="'postcode' + cid" class="my-label mb-1 text-xs"
+        <label :for="'postcode' + cid" class="my-label"
           >Postcode</label
         >
         <input
@@ -402,6 +402,7 @@ export default {
         !this.customerdata.email
       ) {
         alert("please fill all required fields");
+        this.savingChanges = false
         return;
       }
       Mixins.methods
@@ -453,8 +454,11 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="postcss" scoped>
 .my-input {
-  padding: 0.25rem;
+  padding: 0.35rem;
+}
+.my-label {
+  @apply text-xs
 }
 </style>
