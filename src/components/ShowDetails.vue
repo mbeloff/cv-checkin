@@ -34,7 +34,7 @@
     </div>
 
     <!-- ADDTIONAL DRIVERS -->
-    <div class="rounded bg-gray-900">
+    <div class="rounded bg-gray-900" v-if="extradrivers.length">
       <button
         class="flex h-16 w-full items-center justify-between text-white px-2 md:px-5"
         @click="showExtraDrivers = !showExtraDrivers"
