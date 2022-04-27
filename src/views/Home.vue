@@ -58,8 +58,10 @@ export default {
   mixins: [Mixins],
   data() {
     return {
-      resno: "211791",
-      lastname: "test",
+      // resno: "211791",
+      // lastname: "test",
+      resno: "",
+      lastname: "",
       missinginput: false,
       error: "",
       loading: true,
@@ -82,7 +84,8 @@ export default {
   mounted() {
     Mixins.methods.getToken();
     if (this.$route.query.valid == "false") {
-      this.error = "This reservation is not ready for online check-in at this time.";
+      this.error =
+        "This reservation is not ready for online check-in at this time.";
     }
   },
   methods: {
