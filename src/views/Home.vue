@@ -7,8 +7,7 @@
 
     <form for="resno" class="mx-auto flex max-w-sm flex-col text-left">
       <label class="group flex flex-grow flex-col">
-        <div class="flex flex-row place-items-center">
-          <i class="form-i fal fa-book fa-fw -ml-2 mr-2"></i>
+        <div class="relative flex flex-row place-items-center">
           <input
             id="resno"
             v-model="resno"
@@ -18,11 +17,11 @@
             name="resno"
             placeholder="Reservation number"
           />
+          <i class="form-i fal fa-book fa-fw absolute -left-5 -ml-2 mr-2"></i>
         </div>
       </label>
       <label for="lastname" class="group mt-2 flex flex-grow flex-col">
-        <div class="flex flex-row place-items-center">
-          <i class="form-i fal fa-user fa-fw -ml-2 mr-2"></i>
+        <div class="relative flex flex-row place-items-center">
           <input
             id="lastname"
             v-model="lastname"
@@ -32,6 +31,7 @@
             name="lastname"
             placeholder="Last name"
           />
+          <i class="form-i fal fa-user fa-fw absolute -left-5 -ml-2 mr-2"></i>
         </div>
       </label>
       <button
@@ -140,5 +140,9 @@ export default {
 }
 .input-error {
   @apply ring-2 ring-orange-400;
+}
+
+.my-input:focus + .form-i {
+  @apply text-blue-600;
 }
 </style>

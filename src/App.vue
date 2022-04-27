@@ -32,8 +32,7 @@
 .my-input {
   @apply flex-1 rounded border bg-gray-200 py-3 pl-2;
 }
-
-.group:hover .form-i {
-  @apply text-yellow-500;
+.my-input:focus {
+  @apply outline-none ring-2 ring-blue-500;
 }
 </style>
