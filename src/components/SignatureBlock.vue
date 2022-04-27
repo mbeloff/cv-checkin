@@ -34,17 +34,21 @@
       <button class="btn-green" @click="save">Save</button>
       <button class="btn-red" @click="clear">Clear</button>
     </div>
-    <p v-if="signature.signaturetemplateid == 0" class="text-xs text-gray-600">
-      I hereby agree to the terms and conditions of
-      <a class="text-blue-500" target="_blank" href="/CV-VRA.pdf" download
-        >the rental agreement</a
+    <div class="text-xs text-gray-600">
+      <p
+        v-if="signature.signaturetemplateid == 0"
       >
-      and any other terms and conditions that are attached.
-    </p>
-    <p
-      class="text-xs text-gray-600"
-      v-html="signature.signaturetemplatetext"
-    ></p>
+        I hereby agree to the terms and conditions of
+        <a class="text-blue-500" target="_blank" href="/CV-VRA.pdf" download
+          >the Vehicle Rental Agreement</a
+        >
+        and any other terms and conditions that are attached.
+      </p>
+      <p
+        v-else
+        v-html="signature.signaturetemplatetext"
+      ></p>
+    </div>
   </div>
 </template>
 <script>
