@@ -2,12 +2,11 @@ import store from "./store.js";
 export default {
   methods: {
     getToken() {
-      let Host = import.meta.env.VITE_HOST;
       var requestOptions = {
         method: "POST",
         redirect: "follow",
       };
-      fetch(Host + "/.netlify/functions/getToken", requestOptions)
+      fetch("/.netlify/functions/getToken", requestOptions)
         .then((response) => response.text())
         .then((result) => {
           // console.log(result);
