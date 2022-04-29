@@ -58,7 +58,7 @@ export default {
   mixins: [Mixins],
   data() {
     return {
-      // resno: "211791",
+      // resno: "211841",
       // lastname: "test",
       resno: "",
       lastname: "",
