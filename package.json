@@ -11,7 +11,7 @@
   "dependencies": {
     "cloudinary": "^1.27.0",
     "crypto-js": "^4.0.0",
-    "node-fetch": "^2.6.1",
+    "node-fetch": "^3.2.9",
     "v-calendar": "^3.0.0-alpha.8",
     "vue": "^3.2.31",
     "vue-gtag-next": "^1.14.0",
