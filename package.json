@@ -9,7 +9,7 @@
     "format": "prettier .  --write"
   },
   "dependencies": {
-    "cloudinary": "^1.27.0",
+    "cloudinary": "^1.31.0",
     "crypto-js": "^4.0.0",
     "node-fetch": "^2.6.1",
     "v-calendar": "^3.0.0-alpha.8",
