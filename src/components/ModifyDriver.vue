@@ -4,9 +4,7 @@
     <p class="my-3 text-xl font-bold">Driver Details</p>
     <div class="grid grid-cols-1 gap-2 md:grid-cols-2">
       <div class="group flex flex-grow flex-col">
-        <label :for="'fName' + cid" class="my-label"
-          >First Name</label
-        >
+        <label :for="'fName' + cid" class="my-label">First Name</label>
         <input
           :id="'fName' + cid"
           v-model="customerdata.firstname"
@@ -20,9 +18,7 @@
         />
       </div>
       <div class="group flex flex-grow flex-col">
-        <label :for="'lName' + cid" class="my-label"
-          >Last Name</label
-        >
+        <label :for="'lName' + cid" class="my-label">Last Name</label>
         <input
           :id="'lName' + cid"
           v-model="customerdata.lastname"
@@ -68,9 +64,7 @@
         class="group flex flex-grow flex-col"
       >
         <template #default="{ inputValue, inputEvents }">
-          <label :for="'dob' + cid" class="my-label"
-            >Date of Birth</label
-          >
+          <label :for="'dob' + cid" class="my-label">Date of Birth</label>
           <div class="flex flex-row place-items-center">
             <i class="fal fa-calendar fa-fw mr-2"></i>
             <input
@@ -84,9 +78,7 @@
       </date-picker>
 
       <div class="group flex flex-grow flex-col">
-        <label :for="'licenseno' + cid" class="my-label"
-          >License #</label
-        >
+        <label :for="'licenseno' + cid" class="my-label">License #</label>
         <input
           :id="'licenseno' + cid"
           v-model="customerdata.licenseno"
@@ -103,9 +95,7 @@
         class="group flex flex-grow flex-col"
       >
         <template #default="{ inputValue, inputEvents }">
-          <label :for="'licexp' + cid" class="my-label"
-            >License Expiry</label
-          >
+          <label :for="'licexp' + cid" class="my-label">License Expiry</label>
           <div class="flex flex-row place-items-center">
             <i class="form-i fal fa-calendar fa-fw mr-2"></i>
             <input
@@ -137,9 +127,7 @@
       </div>
 
       <div class="group flex flex-grow flex-col">
-        <label :for="'address' + cid" class="my-label"
-          >Street Address</label
-        >
+        <label :for="'address' + cid" class="my-label">Street Address</label>
         <input
           :id="'address' + cid"
           v-model="customerdata.address"
@@ -169,9 +157,7 @@
         />
       </div>
       <div class="group flex flex-col">
-        <label :for="'country' + cid" class="my-label"
-          >Country</label
-        >
+        <label :for="'country' + cid" class="my-label">Country</label>
         <select
           :id="'country' + cid"
           v-model="customerdata.countryid"
@@ -187,9 +173,7 @@
         </select>
       </div>
       <div class="group flex flex-grow flex-col md:mb-0">
-        <label :for="'postcode' + cid" class="my-label"
-          >Postcode</label
-        >
+        <label :for="'postcode' + cid" class="my-label">Postcode</label>
         <input
           :id="'postcode' + cid"
           v-model="customerdata.postcode"
@@ -224,18 +208,21 @@
         </button>
       </div>
     </div>
-    
+
     <div class="my-10" v-if="!newDriver">
-      <p  class="my-3 text-xl font-bold">Document Uploads</p>
+      <p class="my-3 text-xl font-bold">Document Uploads</p>
       <modify-uploads
         @update-section-status="uploadMissing = $event"
         :cid="customer.customerid"
       ></modify-uploads>
     </div>
-    
+
     <div class="" v-if="!newDriver">
-      <p  class="my-3 text-xl font-bold">E-signature</p>
-      <p class="italic text-sm text-gray-600">Please read and sign each required section using your mouse or touch-screen. Click save when you are finished.</p>
+      <p class="my-3 text-xl font-bold">E-signature</p>
+      <p class="text-sm italic text-gray-600">
+        Please read and sign each required section using your mouse or
+        touch-screen. Click save when you are finished.
+      </p>
       <signature-section
         @update-section-status="signatureMissing = $event"
         :cid="customer.customerid"
@@ -402,7 +389,7 @@ export default {
         !this.customerdata.email
       ) {
         alert("please fill all required fields");
-        this.savingChanges = false
+        this.savingChanges = false;
         return;
       }
       Mixins.methods
@@ -433,7 +420,11 @@ export default {
       let ins = this.bookinginfo.extrafees.find(
         (el) => el.isinsurancefee == true
       ).extrafeeid;
-
+      let opts = this.bookinginfo.extrafees
+        .filter((el) => el.isoptionalfee && !el.isinsurancefee)
+        .map((el) => {
+          return { id: el.extrafeeid, qty: el.qty };
+        });
       let params = {
         method: "editbooking",
         reservationref: this.bookinginfo.bookinginfo[0].reservationref,
@@ -444,6 +435,7 @@ export default {
         customer: {
           ...this.customerdata,
         },
+        optionalfees: opts,
       };
       Mixins.methods.postapiCall(params).then((res) => {
         this.savingChanges = false;
@@ -459,6 +451,6 @@ export default {
   padding: 0.35rem;
 }
 .my-label {
-  @apply text-xs
+  @apply text-xs;
 }
 </style>

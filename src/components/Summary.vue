@@ -48,14 +48,14 @@ export default {
       return this.bookinginfo.bookinginfo[0];
     },
   },
-  // mounted() {
-  //   let params = {
-  //     method: "workflowchecklist",
-  //     reservationref: this.trip.reservationref,
-  //     workflowcode: "checkin",
-  //   };
-  //   Mixins.methods.postapiCall(params).then((res) => console.log(res));
-  // },
+  mounted() {
+    let params = {
+      method: "workflowchecklist",
+      reservationref: this.trip.reservationref,
+      workflowcode: "checkin",
+    };
+    Mixins.methods.postapiCall(params).then((res) => console.log(res));
+  },
   methods: {
     timeConvert(time) {
       // Check correct time format and split into components
